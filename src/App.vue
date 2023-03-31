@@ -5,8 +5,11 @@
 </template>
 
 <script>
+import media from '@/minxin/media'
+
 export default {
-  mounted () {}
+  mixins: [media],
+  mounted() {}
 }
 </script>
 
