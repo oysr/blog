@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'PostCard',
-  data () {
+  data() {
     return {
       img: require('@/assets/img/img01.jpg')
     }
