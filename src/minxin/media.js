@@ -3,7 +3,7 @@ import store from '@/store'
 export default {
   mounted() {
     this.mediaQueryObj = window.matchMedia(this.mediaQuery)
-    this.mediaQueryObj.addListener(this.$_handleDeviceToggle)
+    this.mediaQueryObj.onchange = this.$_handleDeviceToggle
   },
   data() {
     return {
