@@ -2,8 +2,12 @@
   <div class="home">
     <home-page-cover></home-page-cover>
     <div class="content">
-        <post-card></post-card>
-        <post-card></post-card>
+        <post-card
+          v-for="(pc, index) in postCardList"
+          :key="index"
+          :pindex="index"
+          :imgName="pc.img"
+        ></post-card>
     </div>
   </div>
 </template>
@@ -17,6 +21,21 @@ export default {
   components: {
     PostCard,
     HomePageCover
+  },
+  data() {
+    return {
+      postCardList: [
+        {
+          img: 'img01.jpg'
+        },
+        {
+          img: 'img01.jpg'
+        },
+        {
+          img: 'img01.jpg'
+        }
+      ]
+    }
   }
 }
 </script>

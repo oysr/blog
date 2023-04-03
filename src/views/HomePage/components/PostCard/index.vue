@@ -1,5 +1,5 @@
 <template>
-    <div class="post-card">
+    <div class="post-card" :class="classObj">
         <div class="img-box">
             <img :src="img" alt="">
         </div>
@@ -10,9 +10,27 @@
 <script>
 export default {
   name: 'PostCard',
+  props: {
+    pindex: {
+      type: Number,
+      required: true
+    },
+    imgName: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      img: require('@/assets/img/img01.jpg')
+      img: require(`@/assets/img/${this.imgName}`)
+    }
+  },
+  computed: {
+    classObj() {
+      return {
+        'img-left-align': this.pindex % 2 === 0,
+        'img-right-align': this.pindex % 2 !== 0
+      }
     }
   }
 }
@@ -21,7 +39,6 @@ export default {
 <style lang="scss" scoped>
 .post-card {
     position: relative;
-    text-align: left;
     .img-box {
         display: inline-block;
         width: 680px;
@@ -39,5 +56,11 @@ export default {
         left: 660px;
         padding: 0 80px;
     }
+}
+.img-left-align {
+    text-align: left;
+}
+.img-right-align {
+    text-align: right;
 }
 </style>
