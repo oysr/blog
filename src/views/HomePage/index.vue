@@ -2,12 +2,12 @@
   <div class="home">
     <home-page-cover></home-page-cover>
     <div class="content">
-        <post-card
-          v-for="(pc, index) in postCardList"
-          :key="index"
-          :pindex="index"
-          :imgName="pc.img"
-        ></post-card>
+      <post-card
+        v-for="(pc, index) in postCardList"
+        :key="index"
+        :pindex="index"
+        :imgName="pc.img"
+      ></post-card>
     </div>
   </div>
 </template>
@@ -42,13 +42,26 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 }
 
-.content {
-    position: relative;
-    margin: 100px auto 0 auto;
+@mixin content-base {
+  position: relative;
+  margin: 100px auto 0 auto;
+}
+
+@media all and (min-width: 1200px) {
+  .content {
+    @include content-base;
     width: 1200px;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  .content {
+    @include content-base;
+    width: 100%;
+  }
 }
 </style>
