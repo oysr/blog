@@ -1,6 +1,7 @@
 <template>
   <div class="cover">
     <div class="scene">
+      <div class="menu-btn">C</div>
       <div ref="layer" class="layer" :style="layerStyle" @mousemove="layerMove">
         <img ref="bgc" :src="bgc" alt="" class="bgc" />
       </div>
@@ -83,6 +84,24 @@ export default {
       @include wrap-base;
       // clip-path: polygon(0 0, 25% 0, 60% 100%, 0 100%);
     }
+  }
+}
+
+.menu-btn {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  font-size: 25px;
+  border-radius: 50%;
+  z-index: 999;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba($color: #fff, $alpha: 0.6);
   }
 }
 </style>
