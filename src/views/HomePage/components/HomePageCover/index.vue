@@ -1,7 +1,18 @@
 <template>
   <div class="cover">
     <div class="scene">
-      <div class="menu-btn">C</div>
+      <div class="menu-btn" @click="controlCurtainShow">
+        <svg-icon
+          v-if="!curtainShow"
+          icon-class="unfold_curtain"
+          className="icon_color"
+        ></svg-icon>
+        <svg-icon
+          v-else
+          icon-class="close_curtain"
+          className="icon_color"
+        ></svg-icon>
+      </div>
       <div ref="layer" class="layer" :style="layerStyle" @mousemove="layerMove">
         <img ref="bgc" :src="bgc" alt="" class="bgc" />
       </div>
@@ -29,6 +40,9 @@ export default {
       return {
         height: this.windowInnerHeight + 'px'
       }
+    },
+    curtainShow() {
+      return this.$store.getters.curtainShow
     }
   },
   methods: {
@@ -40,6 +54,10 @@ export default {
     handleWindowResize() {
       this.windowInnerWidth = window.innerWidth
       this.windowInnerHeight = window.innerHeight
+    },
+    // 控制幕布菜单展示与隐藏
+    controlCurtainShow() {
+      this.$store.dispatch('app/toggleCurtainShow')
     }
   }
 }
@@ -95,13 +113,22 @@ export default {
   height: 40px;
   line-height: 40px;
   text-align: center;
-  color: #fff;
   font-size: 25px;
   border-radius: 50%;
   z-index: 999;
   cursor: pointer;
+  // 禁用选中
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently not supported by any browser */
   &:hover {
-    background-color: rgba($color: #fff, $alpha: 0.6);
+    background-color: rgba($color: #fff, $alpha: 0.8);
+  }
+  .icon_color {
+    color: #ee0f0f;
   }
 }
 </style>
