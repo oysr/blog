@@ -9,6 +9,11 @@ import media from '@/minxin/media'
 
 export default {
   mixins: [media],
+  created() {
+    const host = location.host
+    this.$globalValue.changeLocalURL(host)
+    this.$changeAxiosBaseURL()
+  },
   mounted() {}
 }
 </script>
