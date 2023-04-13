@@ -1,6 +1,7 @@
 <template>
   <div class="cover">
     <div class="scene">
+      <curtain-menu @ended="curtainMoveEnded"></curtain-menu>
       <div class="menu-btn" @click="controlCurtainShow">
         <svg-icon
           v-if="!curtainShow"
@@ -17,13 +18,18 @@
         <img ref="bgc" :src="bgc" alt="" class="bgc" />
       </div>
     </div>
-    <div class="wrap"></div>
+    <div ref="wrap" class="wrap"></div>
   </div>
 </template>
 
 <script>
+import CurtainMenu from '../CurtainMenu'
+
 export default {
   name: 'HomePageCover',
+  components: {
+    CurtainMenu
+  },
   data() {
     return {
       bgc: require('@/assets/img/homepage.png'),
@@ -35,6 +41,14 @@ export default {
     window.addEventListener('resize', this.handleWindowResize)
   },
   beforeDestroy() {},
+  watch: {
+    curtainShow(nv) {
+      if (!nv) {
+        const e = new Event('resize')
+        window.dispatchEvent(e)
+      }
+    }
+  },
   computed: {
     layerStyle() {
       return {
@@ -52,12 +66,25 @@ export default {
       this.$refs.layer.style.transform = `translate3d(${x}px, ${y}px, 0)`
     },
     handleWindowResize() {
+      console.log('------------')
       this.windowInnerWidth = window.innerWidth
       this.windowInnerHeight = window.innerHeight
     },
     // 控制幕布菜单展示与隐藏
     controlCurtainShow() {
       this.$store.dispatch('app/toggleCurtainShow')
+    },
+    // 子组件通知父组件动画结束
+    curtainMoveEnded() {
+      // chrome内核下curtain动画结束会使div.wrap出现遮挡区域不正常的bug，更新标签样式可以解决该bug
+      console.log(this.$refs.wrap.style.clipPath)
+      if (this.$store.getters.device === 'desktop') {
+        if (this.$refs.wrap.style.clipPath === '') {
+          this.$refs.wrap.style.clipPath = 'polygon(0 0, 25.01% 0, 60% 100%, 0 100%)'
+        } else {
+          this.$refs.wrap.style.clipPath = ''
+        }
+      }
     }
   }
 }
