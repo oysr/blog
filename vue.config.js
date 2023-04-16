@@ -2,6 +2,8 @@ const { defineConfig } = require('@vue/cli-service')
 const webConfig = require('./web.config')
 const path = require('path')
 
+const port = process.env.port || process.env.npm_config_port || 8848 // dev port
+
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -10,6 +12,16 @@ module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: process.env.ENV === 'development',
   publicPath: '/',
+  devServer: {
+    host: '0.0.0.0',
+    port: port,
+    client: {
+      webSocketURL: 'ws://0.0.0.0:' + port + '/ws'
+    },
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
+  },
   configureWebpack: {
     name: webConfig.web_title,
     resolve: {
