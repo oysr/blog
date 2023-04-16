@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import PageLayout from '@/layout'
 
 Vue.use(VueRouter)
 
@@ -7,6 +8,10 @@ const routes = [
   {
     path: '/',
     component: () => import('@/views/HomePage')
+  },
+  {
+    path: '/blog',
+    component: PageLayout
   }
 ]
 
