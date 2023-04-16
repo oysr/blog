@@ -61,12 +61,11 @@ export default {
   },
   methods: {
     layerMove(event) {
-      const x = (event.offsetX * -1) / 1.9
-      const y = (event.offsetY * -1) / 3
+      const x = (event.offsetX * -1) / 18
+      const y = (event.offsetY * -1) / 20
       this.$refs.layer.style.transform = `translate3d(${x}px, ${y}px, 0)`
     },
     handleWindowResize() {
-      console.log('------------')
       this.windowInnerWidth = window.innerWidth
       this.windowInnerHeight = window.innerHeight
     },
